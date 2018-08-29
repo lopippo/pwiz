@@ -138,6 +138,7 @@ public:
     virtual double oneOverK0() const;
 
     void getCombinedSpectrumData(std::vector<double>& mz, std::vector<double>& intensities, std::vector<double>& mobilities) const;
+    size_t getCombinedSpectrumDataSize() const;
     virtual pwiz::util::IntegerSet getMergedScanNumbers() const;
 
     virtual bool HasPasefPrecursorInfo() const { return false; }
