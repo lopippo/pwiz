@@ -152,6 +152,7 @@
     <Compile Include="AddLibraryTest.cs" />
     <Compile Include="AreaCVHistogramTest.cs" />
     <Compile Include="AssociateProteinsDlgTest.cs" />
+    <Compile Include="AuditLogSavingTest.cs" />
     <Compile Include="AuditLogTest.cs" />
     <Compile Include="BackgroundEventThreadsTest.cs" />
     <Compile Include="BlibIrtTest.cs" />
@@ -263,6 +264,7 @@
     <Compile Include="LibraryBuildTest.cs" />
     <Compile Include="OptimizeTest.cs" />
     <Compile Include="ShareSettingsTest.cs" />
+    <Compile Include="SingleReplicateResponseCurveTest.cs" />
     <Compile Include="SkylineCmdTest.cs" />
     <Compile Include="SmallMoleculesDocumentGridTest.cs" />
     <Compile Include="SplitGraphTest.cs" />
@@ -347,6 +349,7 @@
     <None Include="AnnotationTest.zip" />
     <None Include="AreaCVHistogramTest.zip" />
     <None Include="AssayLibraryImportTest.zip" />
+    <None Include="AuditLogSavingTest.zip" />
     <None Include="BackgroundProteomeTest.zip" />
     <None Include="CalibrationScenariosTest.zip" />
     <None Include="CalibrationTest.zip" />
@@ -420,6 +423,7 @@
     <None Include="RetentionTimeFilterTest.zip" />
     <None Include="SaveAsPreviousVersionTest.zip" />
     <None Include="ShareSettingsTest.zip" />
+    <None Include="SingleReplicateResponseCurveTest.zip" />
     <None Include="SkylineCmdTest.zip" />
     <None Include="SmallMoleculesDocumentGrid.zip" />
     <None Include="SplitGraphTest.zip" />
