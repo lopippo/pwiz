@@ -666,7 +666,7 @@ int testReader(const Reader& reader, const vector<string>& args, bool testAccept
                 }
                 catch (exception& e)
                 {
-                    cerr << "Error testing on " << filepath.filename().string() << " (" << config.resultFilename("config.mzML") << "): " << e.what() << endl;
+                    cerr << "Error testing on " << rawpath << " (" << config.resultFilename("config.mzML") << "): " << e.what() << endl;
                     ++failedTests;
                 }
 
