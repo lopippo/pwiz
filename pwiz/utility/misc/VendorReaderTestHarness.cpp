@@ -1,4 +1,4 @@
-﻿//
+//
 // $Id$
 //
 //
@@ -226,8 +226,8 @@ class SpectrumList_MGF_Filter : public SpectrumListWrapper
             if (result->getMZArray() && result->getIntensityArray())
             {
                 // take only the first 100 points (100k points in MGF is not fun)
-                vector<double>& mzArray = result->getMZArray()->data;
-                vector<double>& intensityArray = result->getIntensityArray()->data;
+                BinaryData<double>& mzArray = result->getMZArray()->data;
+                BinaryData<double>& intensityArray = result->getIntensityArray()->data;
                 if (result->defaultArrayLength > 100)
                 {
                     result->defaultArrayLength = 100;
@@ -278,7 +278,7 @@ void testRead(const Reader& reader, const string& rawpath, const bfs::path& pare
 
         // test for 1:1 equality with the target mzML
         Diff<MSData, DiffConfig> diff(msd, targetResult);
-        if (diff) cerr << targetResultFilename.filename() << endl << headDiff(diff, 5000) << endl;
+        if (diff) cerr << headDiff(diff, 5000) << endl;
         unit_assert(!diff);
 
         // test serialization of this vendor format in and out of pwiz's supported open formats
@@ -296,7 +296,7 @@ void testRead(const Reader& reader, const string& rawpath, const bfs::path& pare
             DiffConfig diffConfig_mz5;
             diffConfig_mz5.ignoreExtraBinaryDataArrays = true;
             Diff<MSData, DiffConfig> diff_mz5(msd, msd_mz5, diffConfig_mz5);
-            if (diff_mz5) cerr << targetResultFilename.filename() << endl << headDiff(diff_mz5, 5000) << endl;
+            if (diff_mz5) cerr << headDiff(diff_mz5, 5000) << endl;
             unit_assert(!diff_mz5);
         }
         bfs::remove(targetResultFilename_mz5);
@@ -334,7 +334,7 @@ void testRead(const Reader& reader, const string& rawpath, const bfs::path& pare
 
             Diff<MSData, DiffConfig> diff_mzXML(msd, msd_mzXML, diffConfig_non_mzML);
             if (diff_mzXML && !os_) cerr << "mzXML:\n" << headStream(*serializedStreamPtr, 5000) << endl;
-            if (diff_mzXML) cerr << targetResultFilename.filename() << endl << headDiff(diff_mzXML, 5000) << endl;
+            if (diff_mzXML) cerr << headDiff(diff_mzXML, 5000) << endl;
             unit_assert(!diff_mzXML);
         }
 
@@ -355,7 +355,7 @@ void testRead(const Reader& reader, const string& rawpath, const bfs::path& pare
             diffConfig_non_mzML.ignoreIdentity = true;
             Diff<MSData, DiffConfig> diff_MGF(msd, msd_MGF, diffConfig_non_mzML);
             if (diff_MGF && !os_) cerr << "MGF:\n" << headStream(*serializedStreamPtr, 5000) << endl;
-            if (diff_MGF) cerr << targetResultFilename.filename() << endl << headDiff(diff_MGF, 5000) << endl;
+            if (diff_MGF) cerr << headDiff(diff_MGF, 5000) << endl;
             unit_assert(!diff_MGF);
         }
     }
@@ -399,7 +399,7 @@ void testRead(const Reader& reader, const string& rawpath, const bfs::path& pare
     else
     {
         // special case for wiff files with accompanying .scan files
-        if (bal::iequals(rawpathPath.extension().string(), ".wiff"))
+        if (bal::iends_with(rawpath, ".wiff") || bal::iends_with(rawpath, ".wiff2"))
         {
             bfs::path wiffscanPath(rawpathPath);
             wiffscanPath.replace_extension(".wiff.scan");
@@ -666,7 +666,7 @@ int testReader(const Reader& reader, const vector<string>& args, bool testAccept
                 }
                 catch (exception& e)
                 {
-                    cerr << "Error testing on " << rawpath << " (" << config.resultFilename("config.mzML") << "): " << e.what() << endl;
+                    cerr << "Error testing on " << rawpath << ": " << e.what() << endl;
                     ++failedTests;
                 }
 
@@ -687,8 +687,8 @@ int testReader(const Reader& reader, const vector<string>& args, bool testAccept
                     {
                         //string foo;
                         //cin >> foo;
-                        //throw runtime_error("Cannot rename " + rawpath + ": there are unreleased file locks!");
-                        cerr << "Cannot rename " << rawpath << ": there are unreleased file locks!" << endl;
+                        throw runtime_error("Cannot rename " + rawpath + ": there are unreleased file locks!");
+                        //cerr << "Cannot rename " << rawpath << ": there are unreleased file locks!" << endl;
                     }
                 }
             }
